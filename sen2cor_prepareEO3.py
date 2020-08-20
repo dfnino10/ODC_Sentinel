@@ -271,10 +271,13 @@ def prepare_dataset(path):
         documents.append({
             'id': str(uuid.uuid4()),
             '$schema': 'https://schemas.opendatacube.org/dataset',
-            'product':{ 'name': 'SENTINEL_2A'},
+            'product':{ 'name': 'Sentinel_2A'},
             'crs': cs_code,
             #'geometry': {'type': 'Polygon', 'coordinates': get_coords(geo_ref_points, spatial_ref)}, #rasterio.transform/shape (try to get te geojson poligon here as well)
             'grids': {'default': safe_get_grids(images_twenty_list[0]), '10m_res': safe_get_grids(images_ten_list[0]), '60m_res': safe_get_grids(images_sixty_list[0])},
+            'measurements': {
+
+            },
             'processing_level': level.replace('Level-', 'L'),
             'product_type': product_type,
             'creation_dt': ct_time,
