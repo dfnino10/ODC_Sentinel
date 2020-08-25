@@ -16,62 +16,62 @@ measurements:
     - name: 'B01_60m'
       aliases: [band_1, coastal_aerosol]
       dtype: uint16
-      nodata: -9999
+      nodata: 0
       units: 'reflectance'
     - name: 'B02_10m'
       aliases: [band_2, blue]
       dtype: uint16
-      nodata: -9999
+      nodata: 0
       units: 'reflectance'
     - name: 'B03_10m'
       aliases: [band_3, green]
       dtype: uint16
-      nodata: -9999
+      nodata: 0
       units: 'reflectance'
     - name: 'B04_10m'
       aliases: [band_4, red]
       dtype: uint16
-      nodata: -9999
+      nodata: 0
       units: 'reflectance'
     - name: 'B05_20m'
       aliases: [band_5, veg5]
       dtype: uint16
-      nodata: -9999
+      nodata: 0
       units: 'reflectance'
     - name: 'B06_20m'
       aliases: [band_6, veg6]
       dtype: uint16
-      nodata: -9999
+      nodata: 0
       units: 'reflectance'
     - name: 'B07_20m'
       aliases: [band_7, veg7]
       dtype: uint16
-      nodata: -9999
+      nodata: 0
       units: 'reflectance'
     - name: 'B08_10m'
       aliases: [band_8, nir]
       dtype: uint16
-      nodata: -9999
+      nodata: 0
       units: 'reflectance'
     - name: 'B8A_20m'
       aliases: [band_8a, narrow_nir]
       dtype: uint16
-      nodata: -9999
+      nodata: 0
       units: 'reflectance'
     - name: 'B09_60m'
       aliases: [band_9, water_vapour]
       dtype: uint16
-      nodata: -9999
+      nodata: 0
       units: 'reflectance'
     - name: 'B11_20m'
       aliases: [band_11, swir1]
       dtype: uint16
-      nodata: -9999
+      nodata: 0
       units: 'reflectance'
     - name: 'B12_20m'
       aliases: [band_12, swir2]
       dtype: uint16
-      nodata: -9999
+      nodata: 0
       units: 'reflectance'    
     - name: 'SLC_20m'
       aliases: [slc]
@@ -111,62 +111,62 @@ measurements:
     - name: 'B01_60m'
       aliases: [band_1, coastal_aerosol]
       dtype: uint16
-      nodata: -9999
+      nodata: 0
       units: 'reflectance'
     - name: 'B02_10m'
       aliases: [band_2, blue]
       dtype: uint16
-      nodata: -9999
+      nodata: 0
       units: 'reflectance'
     - name: 'B03_10m'
       aliases: [band_3, green]
       dtype: uint16
-      nodata: -9999
+      nodata: 0
       units: 'reflectance'
     - name: 'B04_10m'
       aliases: [band_4, red]
       dtype: uint16
-      nodata: -9999
+      nodata: 0
       units: 'reflectance'
     - name: 'B05_20m'
       aliases: [band_5, veg5]
       dtype: uint16
-      nodata: -9999
+      nodata: 0
       units: 'reflectance'
     - name: 'B06_20m'
       aliases: [band_6, veg6]
       dtype: uint16
-      nodata: -9999
+      nodata: 0
       units: 'reflectance'
     - name: 'B07_20m'
       aliases: [band_7, veg7]
       dtype: uint16
-      nodata: -9999
+      nodata: 0
       units: 'reflectance'
     - name: 'B08_10m'
       aliases: [band_8, nir]
       dtype: uint16
-      nodata: -9999
+      nodata: 0
       units: 'reflectance'
     - name: 'B8A_20m'
       aliases: [band_8a, narrow_nir]
       dtype: uint16
-      nodata: -9999
+      nodata: 0
       units: 'reflectance'
     - name: 'B09_60m'
       aliases: [band_9, water_vapour]
       dtype: uint16
-      nodata: -9999
+      nodata: 0
       units: 'reflectance'
     - name: 'B11_20m'
       aliases: [band_11, swir1]
       dtype: uint16
-      nodata: -9999
+      nodata: 0
       units: 'reflectance'
     - name: 'B12_20m'
       aliases: [band_12, swir2]
       dtype: uint16
-      nodata: -9999
+      nodata: 0
       units: 'reflectance'    
     - name: 'SLC_20m'
       aliases: [slc]

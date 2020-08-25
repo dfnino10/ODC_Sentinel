@@ -217,10 +217,10 @@ def prepare_dataset(path):
 
         root = ElementTree.parse(gran_path).getroot()
         sensing_time = root.findall('./*/SENSING_TIME')[0].text
-        # img_data_path = str(path.parent.joinpath('GRANULE', granule_id, 'IMG_DATA'))
-        # img_data_path_r10 = str(Path(img_data_path).joinpath('R10m'))
-        # img_data_path_r20 = str(path.parent.joinpath('GRANULE', granule_id, 'IMG_DATA', 'R20m'))
-        # img_data_path_r60 = str(path.parent.joinpath('GRANULE', granule_id, 'IMG_DATA', 'R60m'))
+        img_data_path = str(path.parent.joinpath('GRANULE', granule_id, 'IMG_DATA'))
+        img_data_path_r10 = str(path.parent.joinpath('GRANULE', granule_id, 'IMG_DATA', 'R10m'))
+        img_data_path_r20 = str(path.parent.joinpath('GRANULE', granule_id, 'IMG_DATA', 'R20m'))
+        img_data_path_r60 = str(path.parent.joinpath('GRANULE', granule_id, 'IMG_DATA', 'R60m'))
 
         for image in images:
             # print('IMAGE',image)
@@ -275,13 +275,13 @@ def prepare_dataset(path):
             'crs': cs_code,
             #'geometry': {'type': 'Polygon', 'coordinates': get_coords(geo_ref_points, spatial_ref)}, #rasterio.transform/shape (try to get te geojson poligon here as well)
             'grids': {'default': safe_get_grids(images_twenty_list[0]), '10m_res': safe_get_grids(images_ten_list[0]), '60m_res': safe_get_grids(images_sixty_list[0])},
-            'measurements': {
+            'measurements': { 'B01_60m': {'grid': '60m_res', 'path': img_data_path_r60},
 
             },
             'processing_level': level.replace('Level-', 'L'),
             'product_type': product_type,
             'creation_dt': ct_time,
-            'platform': {'code': 'SENTINEL_2A'},
+            'platform': {'code': 'Sentinel-2A'},
             'instrument': {'name': 'MSI'},
             #'acquisition': {'groundstation': {'code': station}},
             #'extent': {
