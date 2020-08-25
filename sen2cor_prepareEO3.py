@@ -257,6 +257,9 @@ def prepare_dataset(path):
 
         cs_code = root.findall('./*/Tile_Geocoding/HORIZONTAL_CS_CODE')[0].text
         spatial_ref = osr.SpatialReference()
+
+        pvi_fileName = str(root.findall('./*/PVI_FILENAME')).split("/")[-1]
+        images_naming = pvi_fileName[0: -7]
         
 
         spatial_ref.SetFromUserInput(cs_code)
@@ -275,8 +278,19 @@ def prepare_dataset(path):
             'crs': cs_code,
             #'geometry': {'type': 'Polygon', 'coordinates': get_coords(geo_ref_points, spatial_ref)}, #rasterio.transform/shape (try to get te geojson poligon here as well)
             'grids': {'default': safe_get_grids(images_twenty_list[0]), '10m_res': safe_get_grids(images_ten_list[0]), '60m_res': safe_get_grids(images_sixty_list[0])},
-            'measurements': { 'B01_60m': {'grid': '60m_res', 'path': img_data_path_r60},
-
+            'measurements': { 'B01_60m': {'grid': '60m_res', 'path': str(path.parent.joinpath(img_data_path_r60, str(images_naming + "B01_60m.jp2")))},
+                              'B02_10m': {'grid': '10m_res', 'path': str(path.parent.joinpath(img_data_path_r10, str(images_naming + "B02_10m.jp2")))},
+                              'B03_10m': {'grid': '10m_res', 'path': str(path.parent.joinpath(img_data_path_r10, str(images_naming + "B03_10m.jp2")))},
+                              'B04_10m': {'grid': '10m_res', 'path': str(path.parent.joinpath(img_data_path_r10, str(images_naming + "B04_10m.jp2")))},
+                              'B05_20m': {'path': str(path.parent.joinpath(img_data_path_r20, str(images_naming + "B05_20m.jp2")))},
+                              'B06_20m': {'path': str(path.parent.joinpath(img_data_path_r20, str(images_naming + "B06_20m.jp2")))},
+                              'B07_20m': {'path': str(path.parent.joinpath(img_data_path_r20, str(images_naming + "B07_20m.jp2")))},
+                              'B08_10m': {'grid': '10m_res', 'path': str(path.parent.joinpath(img_data_path_r10, str(images_naming + "B08_10m.jp2")))},
+                              'B8A_20m': {'path': str(path.parent.joinpath(img_data_path_r20, str(images_naming + "B8A_20m.jp2")))},
+                              'B09_60m': {'grid': '60m_res', 'path': str(path.parent.joinpath(img_data_path_r60, str(images_naming + "B09_60m.jp2")))},
+                              'B11_20m': {'path': str(path.parent.joinpath(img_data_path_r20, str(images_naming + "B11_20m.jp2")))},
+                              'B12_20m': {'path': str(path.parent.joinpath(img_data_path_r20, str(images_naming + "B12_20m.jp2")))},
+                              'SLC_20m': {'path': str(path.parent.joinpath(img_data_path_r20, str(images_naming + "SCL_20m.jp2")))}
             },
             'processing_level': level.replace('Level-', 'L'),
             'product_type': product_type,
