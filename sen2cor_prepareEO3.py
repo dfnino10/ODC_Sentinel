@@ -292,39 +292,15 @@ def prepare_dataset(path):
                               'B12_20m': {'path': str(path.parent.joinpath(img_data_path_r20, str(images_naming + "B12_20m.jp2")))},
                               'SLC_20m': {'path': str(path.parent.joinpath(img_data_path_r20, str(images_naming + "SCL_20m.jp2")))}
             },
-            'processing_level': level.replace('Level-', 'L'),
-            'product_type': product_type,
-            'creation_dt': ct_time,
-            'platform': {'code': 'Sentinel-2A'},
-            'instrument': {'name': 'MSI'},
-            #'acquisition': {'groundstation': {'code': station}},
-            #'extent': {
-            #    'from_dt': sensing_time,
-            #    'to_dt': sensing_time,
-            #    'center_dt': sensing_time,
-            #    'coord': get_coords(geo_ref_points, spatial_ref),
-            #},
-            'format': {'name': 'JPEG2000'},
-            'grid_spatial': {
-                'projection': {
-                    'geo_ref_points': geo_ref_points,
-                    'spatial_reference': spatial_ref.ExportToWkt(),
-                    # TODO revisit sen2cor jp2 file info incomplete - skip valid_data for now
-                    # 'valid_data': {
-                    #    'coordinates': _to_lists(
-                    #        shapely.geometry.mapping(
-                    #            shapely.ops.unary_union([
-                    #                safe_valid_region(images_sixty_list)
-                    #            ])
-                    #        )['coordinates']),
-                    #    'type': "Polygon"}
-                }
-            },
-            'image': {
-                'bands': spectral_dict
-            },
+            'properties': {'eo:platform: Sentinel-2A', 
+                           'eo:instrument: MSI',
+                           'eo:product_type: product_type',
+                           'datetime': ct_time,
+                           'odc:file_format: JPEG2000',
+                           'dea:dataset_maturity: final'
+                           'odc:product_family: ard'
 
-            'lineage': {'source_datasets': {}},
+            },
         })
     return documents
 
