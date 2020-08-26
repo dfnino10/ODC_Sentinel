@@ -107,24 +107,6 @@ def get_grids(image):
         'transform': transform
     }
 
-'measurements' :{
-   'red':{              # Band using non-default "pan" grid
-        'grid': "pan",      # should match the name used in `grids` mapping above
-        'path': "pan.tif"
-   }               
-}
-   red:               # Band using "default" grid should omit `grid` key
-     path: red.tif    # Path relative to the dataset location
-   blue:
-     path: blue.tif
-   multiband_example:
-     path: multi_band.tif
-     band: 2          # int: 1-based index into multi-band file
-   netcdf_example:    # just example, mixing TIFF and netcdf in one product is not recommended
-     path: some.nc
-     layer: some_var  # str: netcdf variable to read
-
-
 
 def get_geo_ref_points(root):
     nrows = int(root.findall('./*/Tile_Geocoding/Size[@resolution="10"]/NROWS')[0].text)
@@ -274,31 +256,30 @@ def prepare_dataset(path):
         documents.append({
             'id': str(uuid.uuid4()),
             '$schema': 'https://schemas.opendatacube.org/dataset',
-            'product':{ 'name': 'Sentinel_2A'},
+            'product':{ 'name': 's2_sen2cor_ard_granule'},
             'crs': cs_code,
-            #'geometry': {'type': 'Polygon', 'coordinates': get_coords(geo_ref_points, spatial_ref)}, #rasterio.transform/shape (try to get te geojson poligon here as well)
             'grids': {'default': safe_get_grids(images_twenty_list[0]), '10m_res': safe_get_grids(images_ten_list[0]), '60m_res': safe_get_grids(images_sixty_list[0])},
-            'measurements': { 'B01_60m': {'grid': '60m_res', 'path': str(path.parent.joinpath(img_data_path_r60, str(images_naming + "B01_60m.jp2")))},
-                              'B02_10m': {'grid': '10m_res', 'path': str(path.parent.joinpath(img_data_path_r10, str(images_naming + "B02_10m.jp2")))},
-                              'B03_10m': {'grid': '10m_res', 'path': str(path.parent.joinpath(img_data_path_r10, str(images_naming + "B03_10m.jp2")))},
-                              'B04_10m': {'grid': '10m_res', 'path': str(path.parent.joinpath(img_data_path_r10, str(images_naming + "B04_10m.jp2")))},
-                              'B05_20m': {'path': str(path.parent.joinpath(img_data_path_r20, str(images_naming + "B05_20m.jp2")))},
-                              'B06_20m': {'path': str(path.parent.joinpath(img_data_path_r20, str(images_naming + "B06_20m.jp2")))},
-                              'B07_20m': {'path': str(path.parent.joinpath(img_data_path_r20, str(images_naming + "B07_20m.jp2")))},
-                              'B08_10m': {'grid': '10m_res', 'path': str(path.parent.joinpath(img_data_path_r10, str(images_naming + "B08_10m.jp2")))},
-                              'B8A_20m': {'path': str(path.parent.joinpath(img_data_path_r20, str(images_naming + "B8A_20m.jp2")))},
-                              'B09_60m': {'grid': '60m_res', 'path': str(path.parent.joinpath(img_data_path_r60, str(images_naming + "B09_60m.jp2")))},
-                              'B11_20m': {'path': str(path.parent.joinpath(img_data_path_r20, str(images_naming + "B11_20m.jp2")))},
-                              'B12_20m': {'path': str(path.parent.joinpath(img_data_path_r20, str(images_naming + "B12_20m.jp2")))},
-                              'SLC_20m': {'path': str(path.parent.joinpath(img_data_path_r20, str(images_naming + "SCL_20m.jp2")))}
+            'measurements': { 'B01_60m': {'grid': '60m_res', 'path': spectral_dict['B01_60m']['path']},
+                              'B02_10m': {'grid': '10m_res', 'path': spectral_dict['B02_10m']['path']},
+                              'B03_10m': {'grid': '10m_res', 'path': spectral_dict['B03_10m']['path']},
+                              'B04_10m': {'grid': '10m_res', 'path': spectral_dict['B04_10m']['path']},
+                              'B05_20m': {'path': spectral_dict['B05_20m']['path']},
+                              'B06_20m': {'path': spectral_dict['B06_20m']['path']},
+                              'B07_20m': {'path': spectral_dict['B07_20m']['path']},
+                              'B08_10m': {'grid': '10m_res', 'path': spectral_dict['B08_10m']['path']},
+                              'B8A_20m': {'path': spectral_dict['B8A_20m']['path']},
+                              'B09_60m': {'grid': '60m_res', 'path': spectral_dict['B09_60m']['path']},
+                              'B11_20m': {'path': spectral_dict['B11_20m']['path']},
+                              'B12_20m': {'path': spectral_dict['B12_20m']['path']},
+                              'SCL_20m': {'path': spectral_dict['SCL_20m']['path']}
             },
-            'properties': {'eo:platform: Sentinel-2A', 
-                           'eo:instrument: MSI',
-                           'eo:product_type: product_type',
+            'properties': {'eo:platform': 'Sentinel-2A', 
+                           'eo:instrument': 'MSI',
+                           'eo:product_type': 'product_type',
                            'datetime': ct_time,
-                           'odc:file_format: JPEG2000',
-                           'dea:dataset_maturity: final'
-                           'odc:product_family: ard'
+                           'odc:file_format': 'JPEG2000',
+                           'dea:dataset_maturity': 'final',
+                           'odc:product_family': 'ard'
 
             },
         })
