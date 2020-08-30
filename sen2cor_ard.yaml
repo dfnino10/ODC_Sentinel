@@ -1,12 +1,12 @@
 # This file describes Sentinel 2 Data, processed through sen2cor
 
-name: s2_sen2cor_ard_granule
+name: s2_sen2cor_ard_granule_EO3
 description: Sentinel-L2A MSI ARD - NBAR NBART and Pixel Quality
-metadata_type: eo
+metadata_type: eo3
 
 metadata:
   format: {name: JPEG2000}
-  product: {name: s2_sen2cor_ard_granule}
+  product: {name: s2_sen2cor_ard_granule_EO3}
   instrument: {name: MSI}
   platform: {code: Sentinel-2A}
   processing_level: L2A

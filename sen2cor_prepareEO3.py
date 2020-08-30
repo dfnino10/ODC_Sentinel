@@ -104,7 +104,7 @@ def get_grids(image):
     transform = src.transform
     return {
         'shape': shape,
-        'transform': transform
+        'transform': [x for x in transform]
     }
 
 
@@ -256,8 +256,10 @@ def prepare_dataset(path):
         documents.append({
             'id': str(uuid.uuid4()),
             '$schema': 'https://schemas.opendatacube.org/dataset',
-            'product':{ 'name': 's2_sen2cor_ard_granule'},
+            'name': 's2_sen2cor_ard_granule_EO3',
             'crs': cs_code,
+            'metadata_type': 'eo3',
+            'metadata': {'format': {'name': 'JPEG2000'}, 'product': {'name': 's2_sen2cor_ard_granule_EO3'}, 'instrument': {'name':'MSI'}, 'platform': {'code': 'Sentinel-2A'}, 'processing_level': 'L2A', 'product_type':'S2MSI2A'},
             'grids': {'default': safe_get_grids(images_twenty_list[0]), '10m_res': safe_get_grids(images_ten_list[0]), '60m_res': safe_get_grids(images_sixty_list[0])},
             'measurements': { 'B01_60m': {'grid': '60m_res', 'path': spectral_dict['B01_60m']['path']},
                               'B02_10m': {'grid': '10m_res', 'path': spectral_dict['B02_10m']['path']},
@@ -322,7 +324,7 @@ def main(datasets, output):
         if documents:
             logging.info("Writing %s dataset(s) into %s", len(documents), yaml_path)
             with open(yaml_path, 'w') as stream:
-                yaml.dump_all(documents, stream, sort_keys=False)
+                yaml.safe_dump_all(documents, stream, sort_keys=False)
         else:
             logging.info("No datasets discovered. Bye!")
 
