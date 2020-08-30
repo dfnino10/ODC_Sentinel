@@ -7,13 +7,6 @@ metadata_type: eo3
 metadata:
   product: 
     name: s2_sen2cor_ard_granule_EO3
-  properties: 
-    eo:platform: Sentinel-2A 
-    eo:instrument: MSI
-    eo:product_type: S2MSI2A
-    odc:file_format: JPEG2000
-    dea:dataset_maturity: final
-    odc:product_family': ard
 
 measurements:
     - name: 'B01_60m'
@@ -76,13 +69,13 @@ measurements:
       dtype: uint16
       nodata: 0
       units: 'reflectance'    
-    - name: 'SLC_20m'
-      aliases: [slc]
+    - name: 'SCL_20m'
+      aliases: [scl]
       dtype: uint8
       nodata: 0
       units: '1'
       flags_definition: 
-        slc:
+        scl:
           bits: [1,2,3,4,5,6,7,8,9,10,11]
           description: Scene classification
           values:
