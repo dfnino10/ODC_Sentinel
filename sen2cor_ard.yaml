@@ -5,12 +5,15 @@ description: Sentinel-L2A MSI ARD - NBAR NBART and Pixel Quality
 metadata_type: eo3
 
 metadata:
-  format: {name: JPEG2000}
-  product: {name: s2_sen2cor_ard_granule_EO3}
-  instrument: {name: MSI}
-  platform: {code: Sentinel-2A}
-  processing_level: L2A
-  product_type: S2MSI2A
+  product: 
+    name: s2_sen2cor_ard_granule_EO3
+  properties: 
+    eo:platform: Sentinel-2A 
+    eo:instrument: MSI
+    eo:product_type: S2MSI2A
+    odc:file_format: JPEG2000
+    dea:dataset_maturity: final
+    odc:product_family': ard
 
 measurements:
     - name: 'B01_60m'
