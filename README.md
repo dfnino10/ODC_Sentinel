@@ -51,5 +51,5 @@ python3 DatacubeIndex.py <input_folder>
 
 
 ## Acknowledgments
-* [Matt Paget] (https://github.com/mpaget)
+* [Matt Paget](https://github.com/mpaget)
 * [Aurelio Vivas](https://github.com/DonAurelio)
