@@ -289,7 +289,7 @@ def prepare_dataset(path):
 
 @click.command(
     help="Batch prepares Sentinel 2 L2 sen2cor datasets SR and SC for ingestion into the Data Cube. It expects a folder containg .safe folders"
-         "eg. python sen2cor_prepare.py <input_folder> --output <outfile>.yaml")
+         "eg. python sen2cor_prepare.py <input_folder> --output <outdir>")
 @click.argument('datasets_folder',
                 type=click.Path(exists=True, readable=True, writable=False),
                 nargs=-1)
