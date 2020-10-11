@@ -1,6 +1,6 @@
 # Downloading and indexing sentinel images to the Open Data Cube
 
-This repo contains scripts to download and index copernicus sentinel imagery.
+This repo contains scripts to download and index [copernicus](https://scihub.copernicus.eu/dhus/#/home) sentinel imagery.
 
 Specifically, SentinelCopernicusDownload.py for acquiring the images locally, batch_sen2cor_prepare.py for generating the metadata needed for the Data Cube to index a set of images and DatacubeIndex.py to batch index the imagery from the previously generated metadata.
 
@@ -10,80 +10,46 @@ These scripts use some libraries to run.
 
 ### Prerequisites
 
-**Sentinelsat**: Library used to download the sentinel imagery from copernicus. You can find documentation on [sentinelsat docs](https://sentinelsat.readthedocs.io/en/stable/index.html)
+**Open Data cube**: For managing, accessing satellite imagery and more. You can find documentation on  [ODC docs](https://datacube-core.readthedocs.io/en/latest/user/intro.html). Also, a docker container download instructions are available on [ODC container installation](https://github.com/DonAurelio/open-datacube-workshop/tree/master/version_1.8.2)
+
+**Sentinelsat**: Library used to download the sentinel imagery from copernicus. You can find documentation on [sentinelsat docs](https://sentinelsat.readthedocs.io/en/stable/index.html).
 
 ```
 pip install sentinelsat
 ```
 
-### Installing
+## Running 
 
-A step by step series of examples that tell you how to get a development env running
 
-Say what the step will be
+### Downloading
 
-```
-Give the example
-```
-
-And repeat
+The SentinelCopernicusDownload.py script is tested on python 3.6. The sentinelsat library uses your copernicus user and password, an otput dir is expected in the `outdir` variable. An example of use is:
 
 ```
-until finished
+python3 SentinelCopernicusDownload.py 
 ```
 
-End with an example of getting some data out of the system or using it for a little demo
+### Indexing into the datacube
 
-## Running the tests
+In order to index the images into the ODC, metadata files must be generated from each image. The script batch_sen2cor_prepare.py does this by taking as input a folder that contains the multiple sentinel-2 images (.safe folders) and an output folder where the metadata files will be saved. The metadata files are yaml files that the datacube uses for indexing the imagery. 
 
-Explain how to run the automated tests for this system
-
-### Break down into end to end tests
-
-Explain what these tests test and why
+Example of use: 
 
 ```
-Give an example
+python3 batch_sen2cor_prepare.py <input_folder> --output <outfolder>
 ```
 
-### And coding style tests
-
-Explain what these tests test and why
-
+Once we have the metadatafiles in a folder, the DatacubeIndex.py scripts goes through each of these files and apply the `datacube dataset add <meadatafile>` command. 
 ```
-Give an example
+python3 DatacubeIndex.py <input_folder> 
 ```
 
-## Deployment
-
-Add additional notes about how to deploy this on a live system
-
-## Built With
-
-* [Dropwizard](http://www.dropwizard.io/1.0.2/docs/) - The web framework used
-* [Maven](https://maven.apache.org/) - Dependency Management
-* [ROME](https://rometools.github.io/rome/) - Used to generate RSS Feeds
-
-## Contributing
-
-Please read [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c63ec426) for details on our code of conduct, and the process for submitting pull requests to us.
-
-## Versioning
-
-We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/your/project/tags). 
 
 ## Authors
 
-* **Billie Thompson** - *Initial work* - [PurpleBooth](https://github.com/PurpleBooth)
+* [David Niño](https://github.com/dfnino10)
 
-See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
 
 ## Acknowledgments
-
-* Hat tip to anyone whose code was used
-* Inspiration
-* etc
+* [Matt Paget] (https://github.com/mpaget)
+* [Aurelio Vivas](https://github.com/DonAurelio)
