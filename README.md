@@ -29,8 +29,9 @@ The SentinelCopernicusDownload.py script is tested on python 3.6. The sentinelsa
 python3 SentinelCopernicusDownload.py 
 ```
 
-### Indexing into the datacube
+### Indexing into the datacube 
 
+(It is important to note that these scripts were developed for indexing Sentinel-2 L2A products.)
 In order to index the images into the ODC, metadata files must be generated from each image. The script batch_sen2cor_prepare.py does this by taking as input a folder that contains the multiple sentinel-2 images (.safe folders) and an output folder where the metadata files will be saved. The metadata files are yaml files that the datacube uses for indexing the imagery. 
 
 Example of use: 
