@@ -289,18 +289,16 @@ def prepare_dataset(path):
 
 @click.command(
     help="Batch prepares Sentinel 2 L2 sen2cor datasets SR and SC for ingestion into the Data Cube. It expects a folder containg .safe folders"
-         "eg. python sen2cor_prepare.py <input_folder> --output <outdir>")
+         "eg. python sen2cor_prepare.py <input_folder>")
 @click.argument('datasets_folder',
                 type=click.Path(exists=True, readable=True, writable=False),
                 nargs=-1)
-@click.option('--output', help="Write datasets into this directory",
-              type=click.Path(exists=False, writable=True, dir_okay=True))
-def main(datasets_folder, output):
+def main(datasets_folder):
     logging.basicConfig(format='%(asctime)s %(levelname)s %(message)s', level=logging.INFO)
     datasets_folder_path = Path(datasets_folder[0]).resolve()
     for dataset in os.listdir(datasets_folder_path):
         path = Path(os.path.join(datasets_folder_path, dataset))
-        print(path)
+        output_path = path
         if path.is_dir():
             # path = Path(path.joinpath(path.stem.replace('PRD_MSIL2A', 'MTD_SAFL2A') + '.xml'))
             for file in os.listdir(path):
@@ -314,7 +312,6 @@ def main(datasets_folder, output):
 
         documents = prepare_dataset(path)
 
-        output_path = Path(output)
         if 'xml' in str(path):
             yaml_path = output_path.joinpath(path.parent.name + '.yaml')
         else:
