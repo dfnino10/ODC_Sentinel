@@ -10,6 +10,7 @@ import uuid
 from pathlib import Path
 from xml.etree import ElementTree
 import subprocess
+import shutil
 
 import click
 import rasterio.features
@@ -286,21 +287,30 @@ def prepare_dataset(path):
         })
     return documents
 
-
 @click.command(
     help="Batch prepares Sentinel 2 L2 sen2cor datasets SR and SC for ingestion into the Data Cube. It expects a folder containg .safe folders"
          "eg. python sen2cor_prepare.py <input_folder>")
 @click.argument('datasets_folder',
                 type=click.Path(exists=True, readable=True, writable=False),
                 nargs=-1)
-def main(datasets_folder):
+@click.option('--output', help="Write datasets into desired directory",
+              type=click.Path(exists=False, writable=True, dir_okay=True))
+def main(datasets_folder, output):
     logging.basicConfig(format='%(asctime)s %(levelname)s %(message)s', level=logging.INFO)
     datasets_folder_path = Path(datasets_folder[0]).resolve()
+    output_path = Path(output).resolve()
     for dataset in os.listdir(datasets_folder_path):
-        path = Path(os.path.join(datasets_folder_path, dataset))
-        output_path = path
+        prev_path = Path(os.path.join(datasets_folder_path, dataset))
+        path = Path(os.path.join(output_path, dataset))
+        output_path_dataset = Path(os.path.join(output_path, dataset))
+        logging.info("Moving %s to %s", prev_path, output_path)
+        try: 
+          shutil.move(str(prev_path), str(output_path))
+        except:
+          logging.exception("Error occurred while moving the dataset, skipping.")
+          continue
+          
         if path.is_dir():
-            # path = Path(path.joinpath(path.stem.replace('PRD_MSIL2A', 'MTD_SAFL2A') + '.xml'))
             for file in os.listdir(path):
                 if file.endswith(".xml"):
                     if file.startswith("MTD"):
@@ -312,11 +322,11 @@ def main(datasets_folder):
 
         documents = prepare_dataset(path)
 
-        if 'xml' in str(path):
-            yaml_path = output_path.joinpath(path.parent.name + '.yaml')
-        else:
-            yaml_path = output_path.joinpath(path.name + '.yaml')
 
+        if 'xml' in str(path):
+            yaml_path = output_path_dataset.joinpath(path.parent.name + '.yaml')
+        else:
+            yaml_path = output_path_dataset.joinpath(path.name + '.yaml')
         if documents:
             logging.info("Writing %s dataset(s) into %s", len(documents), yaml_path)
             with open(yaml_path, 'w') as stream:
@@ -327,3 +337,5 @@ def main(datasets_folder):
 
 if __name__ == "__main__":
     main()
+
+
