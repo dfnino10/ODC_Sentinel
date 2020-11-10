@@ -287,9 +287,10 @@ def prepare_dataset(path):
         })
     return documents
 
+
 @click.command(
     help="Batch prepares Sentinel 2 L2 sen2cor datasets SR and SC for ingestion into the Data Cube. It expects a folder containg .safe folders"
-         "eg. python sen2cor_prepare.py <input_folder>")
+         "eg. python batch_sen2cor_prepare.py <input_folder>")
 @click.argument('datasets_folder',
                 type=click.Path(exists=True, readable=True, writable=False),
                 nargs=-1)
@@ -333,6 +334,7 @@ def main(datasets_folder, output):
                 yaml.safe_dump_all(documents, stream, sort_keys=False)
         else:
             logging.info("No datasets discovered. Bye!")
+
 
 
 if __name__ == "__main__":
