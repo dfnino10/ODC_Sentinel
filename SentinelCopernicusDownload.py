@@ -7,13 +7,13 @@ import cfg
 import glob
 
 api = SentinelAPI(cfg.copernicus["user"], cfg.copernicus["password"], 'https://scihub.copernicus.eu/dhus')
-outdir = '/origin_storage/S2_L2A_MSI_ARD/'
+outdir = '/download_storage/S2_L2A_MSI_ARD/BoyacaImages/'
 
 
-footprint = geojson_to_wkt(read_geojson('/origin_storage/S2_L2A_MSI_ARD/Search Polygons/SogamosoTota.geojson'))
+footprint = geojson_to_wkt(read_geojson('/origin/S2_L2A_MSI_ARD/Search Polygons/BoyacaCentral.geojson'))
 
 products = api.query(footprint,
-                     date=('20191001', '20191020'),
+                     date=('20200919', '20201109'),
                      platformname='Sentinel-2',
                      producttype= 'S2MSI2A',
                      cloudcoverpercentage=(0, 90))
